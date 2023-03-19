@@ -11,3 +11,17 @@ function showLocation(position){
     
     window.open(url,'map');
 }
+
+var lastScrollTop = 100;
+    header = document.getElementById('header')
+window.addEventListener ('scroll', () => {
+    var scrolled = window.scrollY;
+    console.log(scrolled);
+
+    if (lastScrollTop < scrolled) {
+        header.style.top = "-70px";
+    } else {
+        header.style.top = "0px";
+    }
+
+});

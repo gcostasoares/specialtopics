@@ -30,3 +30,22 @@ function jsTask(){
         .pipe(dest('dist')
     );
 }
+
+const cbString = new Date().getTime();
+function cacheBustTask(){
+    return src(['index.html'])
+        .pipe(replace(/cb=\d+/g, 'cb=' + cbString))
+        .pipe(dest('.')
+    );
+}
+
+function watchTask(){
+    watch([files.scssPath, files.jsPath],
+        parallel(scssTask, jsTask));
+}
+
+exports.default = series(
+    parallel(scssTask, jsTask),
+    cacheBustTask,
+    watchTask,
+);
